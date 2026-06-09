@@ -17,9 +17,7 @@ const Navbar = () => {
             className="font-mono text-xl font-bold text-white tracking-wide"
           >
             Click
-            <span className="bg-gradient-to-r from-[#773FFB] to-[#FC46F9] bg-clip-text text-transparent tracking-wider ">
-              Gram
-            </span>
+            <span className="text-gradient ">Gram</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -63,7 +61,7 @@ const Navbar = () => {
                 <span className="text-gray-400">{displayName}</span>
                 <button
                   onClick={signOut}
-                  className="bg-linear-[81deg] from-[#773FFB] to-[#FC46F9] px-3 py-1 cursor-pointer rounded-full"
+                  className="button py-1.5! rounded-2xl"
                 >
                   Sign Out
                 </button>
@@ -71,7 +69,7 @@ const Navbar = () => {
             ) : (
               <button
                 onClick={signInWithGithub}
-                className="flex gap-2 items-center bg-linear-[81deg] from-[#773FFB] to-[#FC46F9] rounded-full px-3 py-1 justify-center text-white cursor-pointer"
+                className="button flex! gap-2 items-center rounded-2xl py-1.5!"
               >
                 <GithubIcon /> Sign In With Github
               </button>
