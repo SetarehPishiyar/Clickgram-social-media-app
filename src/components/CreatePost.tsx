@@ -1,10 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "../supabase-client";
+import { useAuth } from "../context/AuthContext";
 
 interface PostInput {
   title: string;
   content: string;
+  avatar_url: string | null;
 }
 const createPost = async (post: PostInput, imageFile: File) => {
   const filePath = `${post.title}-${Date.now()}.${imageFile.name}`;
@@ -32,16 +34,28 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { user } = useAuth();
+
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data: { post: PostInput; imageFile: File }) => {
       return createPost(data.post, data.imageFile);
+    },
+    onError: (err) => {
+      console.error(err);
     },
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedFile) return;
-    mutate({ post: { title, content }, imageFile: selectedFile });
+    mutate({
+      post: {
+        title,
+        content,
+        avatar_url: user?.user_metadata.avatar_url,
+      },
+      imageFile: selectedFile,
+    });
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

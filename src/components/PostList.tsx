@@ -8,6 +8,7 @@ export interface Post {
   content: string;
   created_at: string;
   imageUrl: string;
+  avatar_url: string | null;
 }
 
 const fetchPosts = async (): Promise<Post[]> => {
@@ -26,8 +27,26 @@ const PostList = () => {
     queryFn: fetchPosts,
   });
 
-  if (isLoading) <div>Loading Posts...</div>;
-  if (error) <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="rounded-3xl border border-white/10 p-8 text-center text-slate-300">
+        Loading Posts...
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="rounded-3xl border border-red-500/20 p-8 text-center text-red-400">
+        Error: {error.message}
+      </div>
+    );
+
+  if (data?.length === 0)
+    return (
+      <div className="rounded-3xl border border-white/10 p-8 text-center text-slate-300">
+        No Posts Yet...
+      </div>
+    );
 
   console.log(data);
   return (

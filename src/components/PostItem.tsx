@@ -34,7 +34,15 @@ const PostItem = ({ post }: Props) => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
           {/* Avatar */}
-          <div className="h-9 w-9 rounded-full bg-gradient-to-tl from-[#8A2BE2] to-[#491F70]" />
+          <div className="h-9 w-9 rounded-full bg-gradient-to-tl from-[#8A2BE2] to-[#491F70]">
+            {post.avatar_url && (
+              <img
+                src={post.avatar_url}
+                alt="avatar"
+                className="h-full w-full object-cover rounded-full"
+              />
+            )}
+          </div>
 
           <div>
             <p className="text-sm font-medium text-zinc-200">Blog Post</p>
