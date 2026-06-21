@@ -58,8 +58,6 @@ const fetchVotes = async (postId: number): Promise<Vote[]> => {
 
 const LikeButton = ({ postId }: { postId: number }) => {
   const { user } = useAuth();
-  const [currentVote, setCurrentVote] = useState<number | null>(null);
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -68,9 +66,7 @@ const LikeButton = ({ postId }: { postId: number }) => {
       if (!user) throw new Error("User must be logged in to like a post");
       return vote(voteValue, postId, user?.id);
     },
-    onSuccess: (_, voteValue) => {
-      setCurrentVote((prev) => (prev === voteValue ? null : voteValue));
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["votes", postId],
       });
@@ -86,6 +82,7 @@ const LikeButton = ({ postId }: { postId: number }) => {
     queryFn: () => fetchVotes(postId),
   });
 
+  const userVote = votes?.find((v) => v.user_id === user?.id)?.vote;
   if (VotesError) throw new Error(VotesError.message);
   if (isLoading) return <div>Loading Votes...</div>;
 
@@ -93,17 +90,20 @@ const LikeButton = ({ postId }: { postId: number }) => {
   const dislikes = votes?.filter((vote) => vote.vote === 0).length ?? 0;
 
   return (
-    <div className="flex gap-2 mt-5">
-      <button onClick={() => mutate(1)} className="flex gap-2 items-center justify-center">
-        <LikeIcon size={20} color={currentVote === 1 ? "#83f7d6" : "#ffffff"} />
+    <div className="flex gap-2">
+      <button
+        onClick={() => mutate(1)}
+        className="flex gap-2 items-center justify-center"
+      >
+        <LikeIcon size={20} color={userVote === 1 ? "#83f7d6" : "#ffffff"} />
         <span>{likes}</span>
       </button>
 
-      <button onClick={() => mutate(0)} className="flex gap-2 items-center justify-center">
-        <DislikeIcon
-          size={20}
-          color={currentVote === 0 ? "#f7838f" : "#ffffff"}
-        />
+      <button
+        onClick={() => mutate(0)}
+        className="flex gap-2 items-center justify-center"
+      >
+        <DislikeIcon size={20} color={userVote === 0 ? "#f7838f" : "#ffffff"} />
         <span>{dislikes}</span>
       </button>
     </div>
