@@ -98,7 +98,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
       {user ? (
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 rounded-3xl border border-white/10 bg-black/1 p-6 backdrop-blur-sm"
+          className="space-y-4 rounded-3xl border border-white/10 bg-white/3 p-6 backdrop-blur-sm"
         >
           {replyTo && (
             <div className="flex items-center justify-between rounded-xl border border-purple-500/20 bg-purple-500/10 p-3 text-sm">

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 interface PostInput {
   title: string;
@@ -35,10 +36,17 @@ const CreatePost = () => {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data: { post: PostInput; imageFile: File }) => {
       return createPost(data.post, data.imageFile);
+    },
+    onSuccess: () => {
+      setTitle("");
+      setContent("");
+      setSelectedFile(null);
+      navigate("/posts");
     },
     onError: (err) => {
       console.error(err);

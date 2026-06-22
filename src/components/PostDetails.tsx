@@ -36,7 +36,7 @@ const PostDetails = ({ postId }: { postId: number }) => {
     );
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur-sm">
+    <div className="rounded-3xl border border-slate-700 bg-slate-950  p-8 shadow-xl backdrop-blur-sm">
       <h1 className="mb-6 text-4xl font-bold tracking-tight text-white">
         {data?.title}
       </h1>
