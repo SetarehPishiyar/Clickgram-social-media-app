@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DislikeIcon, LikeIcon } from "../constants/icons";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../supabase-client";
-import { useEffect, useState } from "react";
 
 interface Vote {
   id: number;
