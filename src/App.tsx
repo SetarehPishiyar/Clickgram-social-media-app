@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import CreatePostPage from "./pages/CreatePostPage";
 import PostPage from "./pages/PostPage";
 import CreateCommunityPage from "./pages/CreateCommunityPage";
+import CommuitiesPage from "./pages/CommuitiesPage";
+import CommunityPage from "./pages/CommunityPage";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             path="/communities/create"
             element={<CreateCommunityPage />}
           ></Route>
+          <Route path="/communities" element={<CommuitiesPage />}></Route>
+          <Route path="/communities/:id" element={<CommunityPage />}></Route>
         </Routes>
       </div>
     </div>

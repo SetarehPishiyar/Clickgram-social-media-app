@@ -1,13 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import { fetchCommunities, type Community } from "./CommunityList";
 
 interface PostInput {
   title: string;
   content: string;
   avatar_url: string | null;
+  community_id: number | null;
 }
 const createPost = async (post: PostInput, imageFile: File) => {
   const filePath = `${post.title}-${Date.now()}.${imageFile.name}`;
@@ -35,8 +37,14 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [communityId, setCommunityId] = useState<number | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  const { data: communities } = useQuery<Community[], Error>({
+    queryFn: fetchCommunities,
+    queryKey: ["communities"],
+  });
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data: { post: PostInput; imageFile: File }) => {
@@ -61,6 +69,7 @@ const CreatePost = () => {
         title,
         content,
         avatar_url: user?.user_metadata.avatar_url,
+        community_id: communityId,
       },
       imageFile: selectedFile,
     });
@@ -71,6 +80,13 @@ const CreatePost = () => {
     if (file) {
       setSelectedFile(file);
     }
+  };
+
+  const handleCommunityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const value = event.target.value;
+    setCommunityId(value === "" ? null : Number(value));
   };
 
   return (
@@ -112,6 +128,41 @@ const CreatePost = () => {
           placeholder="Write your post..."
         ></textarea>
       </div>
+
+      <div>
+        <label
+          htmlFor="community"
+          className="mb-2 block text-sm font-medium text-slate-300"
+        >
+          Community
+        </label>
+
+        <select
+          id="community"
+          value={communityId ?? ""}
+          onChange={handleCommunityChange}
+          className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white transition focus:border-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500/20"
+        >
+          <option value="" className="bg-slate-950 text-slate-400">
+            -- Choose a Community --
+          </option>
+
+          {communities?.map((community) => (
+            <option
+              key={community.id}
+              value={community.id}
+              className="bg-slate-950 text-white"
+            >
+              {community.name}
+            </option>
+          ))}
+        </select>
+
+        <p className="mt-2 text-sm text-slate-500">
+          Select the community where you want to publish this post.
+        </p>
+      </div>
+
       <div>
         <label
           htmlFor="image"
