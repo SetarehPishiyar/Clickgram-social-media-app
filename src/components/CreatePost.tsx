@@ -54,7 +54,7 @@ const CreatePost = () => {
       setTitle("");
       setContent("");
       setSelectedFile(null);
-      navigate("/posts");
+      navigate("/");
     },
     onError: (err) => {
       console.error(err);
