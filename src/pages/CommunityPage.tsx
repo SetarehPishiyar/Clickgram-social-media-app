@@ -4,9 +4,9 @@ import CommunityDisplay from "../components/CommunityDisplay";
 const CommunityPage = () => {
   const { id } = useParams<{ id: string }>();
   return (
-    <div className="px-6 py-12">
+    <div className="px-2 md:px-6 py-12">
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-5xl font-bold tracking-tight text-gradient text-center">
+        <h2 className="md:text-5xl text-3xl font-bold tracking-tight text-gradient text-center">
           Community Posts
         </h2>
         <CommunityDisplay communityId={Number(id)} />

@@ -39,9 +39,9 @@ const CommunityDisplay = ({ communityId }: { communityId: number }) => {
   return (
     <div className="mx-auto mt-10 max-w-7xl">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">All Posts</h2>
+        <h2 className="md:text-3xl text-xl font-bold text-white">All Posts</h2>
 
-        <div className="rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm text-purple-300">
+        <div className="rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 md:text-sm text-xs text-purple-300">
           {data?.length} posts
         </div>
       </div>

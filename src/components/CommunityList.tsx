@@ -44,22 +44,22 @@ const CommunityList = () => {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h2 className="text-xl font-bold text-purple-300">
+                <h2 className="md:text-xl text-sm font-bold text-purple-300">
                   {community.name}
                 </h2>
 
-                <p className="mt-3 text-slate-300 leading-relaxed">
+                <p className="mt-3 text-sm md:text-lg text-slate-300 leading-relaxed">
                   {community.description}
                 </p>
               </div>
 
-              <div className="rounded-full bg-purple-500/10 px-4 py-2 text-sm text-purple-300">
+              <div className="rounded-full md:text-sm text-xs bg-purple-500/10 px-4 py-2 text-purple-300">
                 Community
               </div>
             </div>
 
             <div className="mt-6 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-500">
+              <p className="text-xs md:text-sm text-slate-500">
                 Created {new Date(community.created_at).toLocaleDateString()}
               </p>
             </div>

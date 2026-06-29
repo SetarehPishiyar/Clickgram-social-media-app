@@ -94,7 +94,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
 
   return (
     <div className="mt-12 space-y-8">
-      <h3 className="text-2xl font-bold text-white">Comments</h3>
+      <h3 className="md:text-2xl text-xl font-bold text-white">Comments</h3>
       {user ? (
         <form
           onSubmit={handleSubmit}
@@ -102,14 +102,14 @@ const CommentSection = ({ postId }: { postId: number }) => {
         >
           {replyTo && (
             <div className="flex items-center justify-between rounded-xl border border-purple-500/20 bg-purple-500/10 p-3 text-sm">
-              <span className="text-purple-300">
+              <span className="text-purple-300 text-sm md:text-lg">
                 Replying to comment #{replyTo}
               </span>
 
               <button
                 type="button"
                 onClick={() => setReplyTo(null)}
-                className="text-slate-400 hover:text-white"
+                className="text-slate-400 text-sm md:text-lg hover:text-white"
               >
                 Cancel
               </button>
@@ -120,7 +120,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
             rows={3}
             placeholder="write a comment..."
             onChange={(e) => setNewComment(e.target.value)}
-            className="w-full resize-none rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500/20"
+            className="w-full text-sm md:text-md resize-none rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500/20"
           ></textarea>
           <div className="flex items-center gap-4">
             <button type="submit" className="button" disabled={isPending}>
@@ -133,7 +133,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
           </div>
         </form>
       ) : (
-        <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-400">
+        <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-400 md:text-lg text-sm">
           You must be logged in to post a comment
         </p>
       )}
@@ -152,16 +152,16 @@ const CommentSection = ({ postId }: { postId: number }) => {
             >
               {/* Main comment */}
               <div className="mb-3 flex items-center justify-between">
-                <p className="font-semibold text-purple-300">
+                <p className="font-semibold md:text-lg text-sm text-purple-300">
                   {comment.author}
                 </p>
 
-                <p className="text-sm text-slate-500">
+                <p className="text-xs md:text-sm text-slate-500">
                   {new Date(comment.created_at).toLocaleDateString()}
                 </p>
               </div>
 
-              <p className="leading-relaxed text-slate-200">
+              <p className="leading-relaxed text-sm md:text-md text-slate-200">
                 {comment.content}
               </p>
 
@@ -174,14 +174,14 @@ const CommentSection = ({ postId }: { postId: number }) => {
 
               {/* Replies */}
               {replies.length > 0 && (
-                <div className="ml-8 mt-6 space-y-4 border-l border-purple-500/20 pl-6">
+                <div className="md:ml-8 ml-0 mt-6 space-y-4 border-l border-purple-500/20 pl-6">
                   {replies.map((reply) => (
                     <div
                       key={reply.id}
                       className="rounded-2xl border border-white/10 bg-slate-900/40 p-4"
                     >
-                      <div className="mb-2 flex items-center justify-between">
-                        <p className="font-medium text-purple-300">
+                      <div className="mb-2 flex flex-col items-start justify-between">
+                        <p className="font-medium text-sm md:text-lg text-purple-300">
                           {reply.author}
                         </p>
 
@@ -190,7 +190,9 @@ const CommentSection = ({ postId }: { postId: number }) => {
                         </p>
                       </div>
 
-                      <p className="text-slate-300">{reply.content}</p>
+                      <p className="text-slate-300 text-sm lg:text-md">
+                        {reply.content}
+                      </p>
                     </div>
                   ))}
                 </div>

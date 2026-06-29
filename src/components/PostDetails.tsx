@@ -37,7 +37,7 @@ const PostDetails = ({ postId }: { postId: number }) => {
 
   return (
     <div className="rounded-3xl border border-slate-700 bg-slate-950  p-8 shadow-xl backdrop-blur-sm">
-      <h1 className="mb-6 text-4xl font-bold tracking-tight text-white">
+      <h1 className="mb-6 md:text-4xl text-xl font-bold tracking-tight text-white">
         {data?.title}
       </h1>
 
@@ -47,12 +47,12 @@ const PostDetails = ({ postId }: { postId: number }) => {
         className="mb-6 max-h-[500px] w-full rounded-2xl object-cover"
       />
 
-      <p className="mb-6 whitespace-pre-wrap text-lg leading-8 text-slate-200">
+      <p className="mb-6 whitespace-pre-wrap md:text-lg text-sm leading-8 text-slate-200">
         {data?.content}
       </p>
 
       <div className="border-t border-white/10 pt-4 flex justify-between">
-        <span className="text-sm text-slate-400">
+        <span className="text-xs md:text-sm text-slate-400">
           Created at: {new Date(data!.created_at).toLocaleDateString()}
         </span>
         <LikeButton postId={postId} />
