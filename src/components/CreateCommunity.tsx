@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "../supabase-client";
+import { useAuth } from "../context/AuthContext";
 
 interface CommunityInput {
   name: string;
@@ -19,6 +20,7 @@ const CreateCommunity = () => {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: createCommunity,
@@ -33,6 +35,10 @@ const CreateCommunity = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) {
+      alert("You must be logged in to create a community");
+      return;
+    }
     mutate({ name, description });
   };
 

@@ -62,7 +62,11 @@ const LikeButton = ({ postId }: { postId: number }) => {
   const { mutate } = useMutation({
     mutationKey: ["like", postId],
     mutationFn: (voteValue: number) => {
-      if (!user) throw new Error("User must be logged in to like a post");
+      if (!user) {
+        alert("User must be logged in to like a post");
+        throw new Error("User must be logged in to like a post");
+      }
+
       return vote(voteValue, postId, user?.id);
     },
     onSuccess: () => {

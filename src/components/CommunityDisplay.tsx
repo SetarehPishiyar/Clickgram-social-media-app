@@ -46,7 +46,7 @@ const CommunityDisplay = ({ communityId }: { communityId: number }) => {
         </div>
       </div>
 
-      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {data?.map((post) => (
           <div key={post.id}>
             <PostItem post={post} />

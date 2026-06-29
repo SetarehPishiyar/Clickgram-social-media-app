@@ -64,6 +64,10 @@ const CreatePost = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedFile) return;
+    if (!user) {
+      alert("You must be logged in to create a community");
+      return;
+    }
     mutate({
       post: {
         title,
